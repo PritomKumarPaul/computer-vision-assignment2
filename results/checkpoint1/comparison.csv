@@ -1,0 +1,3 @@
+run_name,model,external_pretraining,total_parameters,epochs_completed,best_epoch,clean_train_accuracy,best_validation_accuracy,best_validation_macro_f1,clean_train_validation_gap,total_seconds,peak_gpu_memory_mib,test_evaluated
+supervised_resnet18_seed0,resnet18,false,11184720,73,53,0.9901041666666667,0.8375,0.8369419395240913,0.15260416666666665,392.437276288867,954.1826171875,false
+supervised_vit_tiny_seed0,vit_tiny,false,2858320,100,98,0.8244791666666667,0.68125,0.6802713203999606,0.14322916666666663,298.69722572155297,756.5849609375,false

@@ -1,0 +1,10 @@
+{
+  "checkpoint": "artifacts/checkpoints/checkpoint1/supervised_vit_tiny_seed0/best.pt",
+  "split": "fixed training manifest with deterministic evaluation transform",
+  "images": 1920,
+  "loss": 0.9859946628411611,
+  "accuracy": 0.8244791666666667,
+  "macro_f1": 0.8229169696915506,
+  "duration_seconds": 2.595929174683988,
+  "test_evaluated": false
+}

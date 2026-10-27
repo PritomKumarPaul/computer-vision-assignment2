@@ -1,5 +1,5 @@
 # Dataset and source archive
-data/
+/data/
 *.zip
 
 # Model weights are distributed through a release or external storage

@@ -5,13 +5,6 @@ training images from 16 scene classes. Every model is initialized from scratch
 and trained only with the supplied training images. External pretrained weights
 and external training images are not used.
 
-The project contains two controlled streams:
-
-- a CNN stream centered on ResNet-18, MoCo/BYOL-style pretraining, and
-  consistency-regularized fine-tuning;
-- a transformer stream centered on a small Vision Transformer, DINO-style
-  self-distillation, and joint masked-image reconstruction plus classification.
-
 ## Data
 
 The dataset is deliberately excluded from Git. Place it at:
@@ -58,4 +51,37 @@ python scripts/create_split.py \
 Training commands and final results will be added as their corresponding
 checkpoint milestones are completed. The final two-page report is maintained
 outside this repository and submitted separately through Canvas.
+
+## Checkpoint 1: supervised controls
+
+The first controlled comparison trains a randomly initialized ResNet-18 and a
+randomly initialized small Vision Transformer. Both use the same fixed split,
+224x224 inputs, scene-preserving augmentation, label smoothing, and
+validation-only model selection. Their optimizer settings are recorded in the
+YAML configurations.
+
+Run both controls sequentially with:
+
+```bash
+conda activate vlm_clean
+bash run_checkpoint1.sh
+```
+
+The runner skips experiments that already have a completed `summary.json`, so
+it is safe to resume after one model finishes. Set `FORCE=1` only when an
+intentional full retraining is required.
+
+Or run one model at a time:
+
+```bash
+python scripts/train_supervised.py \
+  --config configs/checkpoint1_resnet18.yaml \
+  --device auto
+
+python scripts/train_supervised.py \
+  --config configs/checkpoint1_vit_tiny.yaml \
+  --device auto
+```
+
+These commands do not load or evaluate the labeled test set or `test2`.
 
