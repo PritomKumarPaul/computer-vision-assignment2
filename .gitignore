@@ -1,0 +1,33 @@
+# Dataset and source archive
+data/
+*.zip
+
+# Model weights are distributed through a release or external storage
+*.pt
+*.pth
+*.ckpt
+artifacts/
+
+# Generated experiment output
+outputs/
+logs/
+wandb/
+tensorboard/
+results/**/predictions.csv
+
+# The final report is submitted separately through Canvas
+submission/
+report/
+Assignment2.pdf
+EXPERIMENT_PLAN.md
+
+# Python/editor/system files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.DS_Store
+.idea/
+.vscode/
+

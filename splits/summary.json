@@ -1,0 +1,86 @@
+{
+  "seed": 0,
+  "val_fraction": 0.2,
+  "class_names": [
+    "Bedroom",
+    "Coast",
+    "Flower",
+    "Forest",
+    "Highway",
+    "Industrial",
+    "InsideCity",
+    "Kitchen",
+    "LivingRoom",
+    "Mountain",
+    "Office",
+    "OpenCountry",
+    "Store",
+    "Street",
+    "Suburb",
+    "TallBuilding"
+  ],
+  "train_images": 1920,
+  "validation_images": 480,
+  "train_per_class": {
+    "Bedroom": 120,
+    "Coast": 120,
+    "Flower": 120,
+    "Forest": 120,
+    "Highway": 120,
+    "Industrial": 120,
+    "InsideCity": 120,
+    "Kitchen": 120,
+    "LivingRoom": 120,
+    "Mountain": 120,
+    "Office": 120,
+    "OpenCountry": 120,
+    "Store": 120,
+    "Street": 120,
+    "Suburb": 120,
+    "TallBuilding": 120
+  },
+  "validation_per_class": {
+    "Bedroom": 30,
+    "Coast": 30,
+    "Flower": 30,
+    "Forest": 30,
+    "Highway": 30,
+    "Industrial": 30,
+    "InsideCity": 30,
+    "Kitchen": 30,
+    "LivingRoom": 30,
+    "Mountain": 30,
+    "Office": 30,
+    "OpenCountry": 30,
+    "Store": 30,
+    "Street": 30,
+    "Suburb": 30,
+    "TallBuilding": 30
+  },
+  "exact_duplicate_groups": [
+    [
+      "LivingRoom/image_0027.jpg",
+      "LivingRoom/image_0289.jpg"
+    ],
+    [
+      "LivingRoom/image_0269.jpg",
+      "LivingRoom/image_0286.jpg"
+    ],
+    [
+      "LivingRoom/image_0003.jpg",
+      "LivingRoom/image_0028.jpg"
+    ],
+    [
+      "LivingRoom/image_0208.jpg",
+      "LivingRoom/image_0211.jpg"
+    ],
+    [
+      "LivingRoom/image_0004.jpg",
+      "LivingRoom/image_0030.jpg"
+    ],
+    [
+      "LivingRoom/image_0005.jpg",
+      "LivingRoom/image_0034.jpg"
+    ]
+  ]
+}

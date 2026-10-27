@@ -1,0 +1,14 @@
+data_root: data
+train_root: data/train
+test_root: data/test
+test2_root: data/test2
+train_manifest: splits/train.csv
+validation_manifest: splits/val.csv
+split_seed: 0
+num_classes: 16
+expected_train_pool_images: 2400
+expected_train_images: 1920
+expected_validation_images: 480
+expected_test_images: 400
+use_test2: false
+
