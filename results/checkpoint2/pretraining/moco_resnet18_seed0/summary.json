@@ -1,0 +1,24 @@
+{
+  "run_name": "moco_resnet18_seed0",
+  "method": "moco",
+  "backbone": "resnet18",
+  "external_pretraining": false,
+  "epochs_completed": 200,
+  "pretraining_images_after_hash_deduplication": 1916,
+  "total_parameters": 23668096,
+  "trainable_parameters": 11834048,
+  "total_seconds": 5583.45433059521,
+  "peak_gpu_memory_mib": 2307.78466796875,
+  "encoder_checkpoint": "artifacts/checkpoints/checkpoint2/pretraining/moco_resnet18_seed0/encoder.pt",
+  "encoder_sha256": "cc75cdec6fa6d120fee07a3eb2f56633c532d509cc1adc2a9f50333a5552c46f",
+  "diagnostics": {
+    "mean_dimension_std": 0.28831082582473755,
+    "minimum_dimension_std": 0.10079020261764526,
+    "effective_rank": 17.225868225097656,
+    "mean_pairwise_cosine_similarity": 0.7054649591445923,
+    "knn_accuracy": 0.5541666666666667,
+    "knn_macro_f1": 0.5451274505799959,
+    "knn_neighbors": 5
+  },
+  "test_evaluated": false
+}

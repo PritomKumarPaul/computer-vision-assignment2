@@ -1,0 +1,10 @@
+{
+  "checkpoint": "artifacts/checkpoints/checkpoint2/classification/moco_vit_tiny_full_finetune_seed0/best.pt",
+  "split": "fixed training manifest with deterministic evaluation transform",
+  "images": 1920,
+  "loss": 1.2821869115034739,
+  "accuracy": 0.6989583333333333,
+  "macro_f1": 0.6976645030506841,
+  "duration_seconds": 2.3921518428251147,
+  "test_evaluated": false
+}

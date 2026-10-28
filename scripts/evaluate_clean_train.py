@@ -21,7 +21,7 @@ from src.data.manifest_dataset import (  # noqa: E402
     ManifestImageDataset,
     build_transforms,
 )
-from src.models import build_model  # noqa: E402
+from src.models import EncoderClassifier, build_encoder, build_model  # noqa: E402
 from src.training import evaluate  # noqa: E402
 
 
@@ -55,11 +55,24 @@ def main() -> None:
         map_location=device,
         weights_only=False,
     )
-    model = build_model(
-        checkpoint["model_name"],
-        num_classes=int(checkpoint["num_classes"]),
-        image_size=int(checkpoint["image_size"]),
-    ).to(device)
+    model_config = checkpoint.get("config", {}).get("model", {})
+    if model_config.get("initialization", "random") == "ssl":
+        encoder, feature_dim = build_encoder(
+            checkpoint["model_name"], image_size=int(checkpoint["image_size"])
+        )
+        model = EncoderClassifier(
+            encoder,
+            feature_dim,
+            int(checkpoint["num_classes"]),
+            freeze_encoder=checkpoint["config"]["training"]["protocol"] == "linear_probe",
+        )
+    else:
+        model = build_model(
+            checkpoint["model_name"],
+            num_classes=int(checkpoint["num_classes"]),
+            image_size=int(checkpoint["image_size"]),
+        )
+    model = model.to(device)
     model.load_state_dict(checkpoint["model_state"])
 
     _, clean_transform = build_transforms(

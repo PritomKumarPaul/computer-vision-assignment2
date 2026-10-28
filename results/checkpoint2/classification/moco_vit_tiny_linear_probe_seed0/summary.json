@@ -1,0 +1,33 @@
+{
+  "run_name": "moco_vit_tiny_linear_probe_seed0",
+  "method": "moco",
+  "classification_protocol": "linear_probe",
+  "external_pretraining": false,
+  "model": "vit_tiny",
+  "seed": 0,
+  "epochs_completed": 37,
+  "best_epoch": 22,
+  "best_validation_accuracy": 0.5020833333333333,
+  "best_validation_macro_f1": 0.49059870767342617,
+  "final_best_checkpoint_validation_accuracy": 0.5020833333333333,
+  "final_best_checkpoint_validation_macro_f1": 0.49059870767342617,
+  "train_images": 1920,
+  "validation_images": 480,
+  "test_evaluated": false,
+  "total_parameters": 2858320,
+  "trainable_parameters": 3088,
+  "total_seconds": 103.21230525150895,
+  "peak_gpu_memory_mib": 158.15283203125,
+  "checkpoint_path": "artifacts/checkpoints/checkpoint2/classification/moco_vit_tiny_linear_probe_seed0/best.pt",
+  "checkpoint_sha256": "1dcd2c3b943e3cf29774797e1e76940274d0751f1407a01ac38ecba71eb532a4",
+  "environment": {
+    "python": "3.10.19",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+    "torch": "2.5.1+cu121",
+    "torchvision": "0.20.1+cu121",
+    "sklearn": "1.7.2",
+    "cuda_runtime": "12.1",
+    "device": "cuda",
+    "gpu": "NVIDIA A100-PCIE-40GB"
+  }
+}

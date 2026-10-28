@@ -1,0 +1,24 @@
+{
+  "run_name": "dino_vit_tiny_seed0",
+  "method": "dino",
+  "backbone": "vit_tiny",
+  "external_pretraining": false,
+  "epochs_completed": 200,
+  "pretraining_images_after_hash_deduplication": 1916,
+  "total_parameters": 7156864,
+  "trainable_parameters": 3578432,
+  "total_seconds": 1819.645795892924,
+  "peak_gpu_memory_mib": 2792.5869140625,
+  "encoder_checkpoint": "artifacts/checkpoints/checkpoint2/pretraining/dino_vit_tiny_seed0/encoder.pt",
+  "encoder_sha256": "7d99ead2df3e7a423ad36ed60f08e33b296e7742ae3fc5deb539314f1e1d477d",
+  "diagnostics": {
+    "mean_dimension_std": 0.6882850527763367,
+    "minimum_dimension_std": 0.3060445785522461,
+    "effective_rank": 6.043615341186523,
+    "mean_pairwise_cosine_similarity": 0.40560999512672424,
+    "knn_accuracy": 0.375,
+    "knn_macro_f1": 0.3677530608324243,
+    "knn_neighbors": 5
+  },
+  "test_evaluated": false
+}

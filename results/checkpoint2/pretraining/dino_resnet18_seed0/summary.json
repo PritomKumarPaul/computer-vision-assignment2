@@ -1,0 +1,24 @@
+{
+  "run_name": "dino_resnet18_seed0",
+  "method": "dino",
+  "backbone": "resnet18",
+  "external_pretraining": false,
+  "epochs_completed": 200,
+  "pretraining_images_after_hash_deduplication": 1916,
+  "total_parameters": 24454784,
+  "trainable_parameters": 12227392,
+  "total_seconds": 3449.715648469515,
+  "peak_gpu_memory_mib": 3539.70947265625,
+  "encoder_checkpoint": "artifacts/checkpoints/checkpoint2/pretraining/dino_resnet18_seed0/encoder.pt",
+  "encoder_sha256": "af12956ce9275a274ec67d3f23fd0e843c3274d5c9fbd998b189b45581a28696",
+  "diagnostics": {
+    "mean_dimension_std": 0.3868616819381714,
+    "minimum_dimension_std": 0.12042774260044098,
+    "effective_rank": 6.166070461273193,
+    "mean_pairwise_cosine_similarity": 0.6207631826400757,
+    "knn_accuracy": 0.6583333333333333,
+    "knn_macro_f1": 0.6487820365159784,
+    "knn_neighbors": 5
+  },
+  "test_evaluated": false
+}

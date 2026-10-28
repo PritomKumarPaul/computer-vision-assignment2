@@ -1,0 +1,10 @@
+{
+  "checkpoint": "artifacts/checkpoints/checkpoint2/classification/moco_resnet18_full_finetune_seed0/best.pt",
+  "split": "fixed training manifest with deterministic evaluation transform",
+  "images": 1920,
+  "loss": 0.8526088734467824,
+  "accuracy": 0.9255208333333333,
+  "macro_f1": 0.9246604909986608,
+  "duration_seconds": 2.5487043587490916,
+  "test_evaluated": false
+}

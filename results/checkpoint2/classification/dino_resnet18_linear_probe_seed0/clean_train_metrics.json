@@ -1,0 +1,10 @@
+{
+  "checkpoint": "artifacts/checkpoints/checkpoint2/classification/dino_resnet18_linear_probe_seed0/best.pt",
+  "split": "fixed training manifest with deterministic evaluation transform",
+  "images": 1920,
+  "loss": 0.7419288598621885,
+  "accuracy": 0.759375,
+  "macro_f1": 0.7551678726191757,
+  "duration_seconds": 2.4250935642048717,
+  "test_evaluated": false
+}

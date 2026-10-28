@@ -1,0 +1,24 @@
+{
+  "run_name": "moco_vit_tiny_seed0",
+  "method": "moco",
+  "backbone": "vit_tiny",
+  "external_pretraining": false,
+  "epochs_completed": 200,
+  "pretraining_images_after_hash_deduplication": 1916,
+  "total_parameters": 6370176,
+  "trainable_parameters": 3185088,
+  "total_seconds": 1492.9149878015742,
+  "peak_gpu_memory_mib": 1655.8759765625,
+  "encoder_checkpoint": "artifacts/checkpoints/checkpoint2/pretraining/moco_vit_tiny_seed0/encoder.pt",
+  "encoder_sha256": "36aff571d1c01a205f528874b748c0960d6748fe427f43ca5594e2056f5a424a",
+  "diagnostics": {
+    "mean_dimension_std": 0.6022103428840637,
+    "minimum_dimension_std": 0.310179203748703,
+    "effective_rank": 8.95411491394043,
+    "mean_pairwise_cosine_similarity": 0.5898791551589966,
+    "knn_accuracy": 0.4125,
+    "knn_macro_f1": 0.41759045639068654,
+    "knn_neighbors": 5
+  },
+  "test_evaluated": false
+}

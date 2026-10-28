@@ -1,0 +1,37 @@
+run_name: moco_vit_tiny_linear_probe_seed0
+seed: 0
+output_root: results/checkpoint2/classification
+checkpoint_root: artifacts/checkpoints/checkpoint2/classification
+data:
+  train_root: data/train
+  train_manifest: splits/train.csv
+  validation_manifest: splits/val.csv
+  normalization_mean:
+  - 0.5
+  - 0.5
+  - 0.5
+  normalization_std:
+  - 0.25
+  - 0.25
+  - 0.25
+model:
+  name: vit_tiny
+  num_classes: 16
+  image_size: 224
+  initialization: ssl
+  ssl_method: moco
+  ssl_checkpoint: artifacts/checkpoints/checkpoint2/pretraining/moco_vit_tiny_seed0/encoder.pt
+training:
+  protocol: linear_probe
+  batch_size: 64
+  num_workers: 8
+  epochs: 100
+  early_stopping_patience: 15
+  learning_rate: 0.001
+  head_learning_rate: 0.001
+  minimum_learning_rate: 1.0e-06
+  warmup_epochs: 5
+  weight_decay: 0.05
+  label_smoothing: 0.0
+  gradient_clip_norm: 1.0
+  mixed_precision: true

@@ -1,0 +1,9 @@
+{
+  "mean_dimension_std": 0.28831082582473755,
+  "minimum_dimension_std": 0.10079020261764526,
+  "effective_rank": 17.225868225097656,
+  "mean_pairwise_cosine_similarity": 0.7054649591445923,
+  "knn_accuracy": 0.5541666666666667,
+  "knn_macro_f1": 0.5451274505799959,
+  "knn_neighbors": 5
+}

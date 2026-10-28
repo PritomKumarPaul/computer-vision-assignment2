@@ -30,7 +30,12 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.data import build_dataloaders  # noqa: E402
-from src.models import build_model, count_parameters  # noqa: E402
+from src.models import (  # noqa: E402
+    EncoderClassifier,
+    build_encoder,
+    build_model,
+    count_parameters,
+)
 from src.training import evaluate, train_one_epoch  # noqa: E402
 
 
@@ -166,18 +171,50 @@ def main() -> None:
     if len(class_names) != int(config["model"]["num_classes"]):
         raise RuntimeError("Configured class count does not match the manifests")
 
-    model = build_model(
-        str(config["model"]["name"]),
-        num_classes=int(config["model"]["num_classes"]),
-        image_size=int(config["model"]["image_size"]),
-    ).to(device)
+    initialization = str(config["model"]["initialization"])
+    if initialization == "random":
+        model = build_model(
+            str(config["model"]["name"]),
+            num_classes=int(config["model"]["num_classes"]),
+            image_size=int(config["model"]["image_size"]),
+        )
+    elif initialization == "ssl":
+        ssl_checkpoint = torch.load(
+            absolute(config["model"]["ssl_checkpoint"]),
+            map_location="cpu",
+            weights_only=False,
+        )
+        if ssl_checkpoint["backbone"] != config["model"]["name"]:
+            raise RuntimeError("SSL checkpoint backbone does not match the config")
+        encoder, feature_dim = build_encoder(
+            str(config["model"]["name"]),
+            image_size=int(config["model"]["image_size"]),
+        )
+        encoder.load_state_dict(ssl_checkpoint["encoder_state"])
+        protocol = str(config["training"]["protocol"])
+        model = EncoderClassifier(
+            encoder,
+            feature_dim,
+            int(config["model"]["num_classes"]),
+            freeze_encoder=protocol == "linear_probe",
+        )
+    else:
+        raise ValueError(f"Unknown initialization: {initialization}")
+    model = model.to(device)
     total_parameters, trainable_parameters = count_parameters(model)
 
     criterion = nn.CrossEntropyLoss(
         label_smoothing=float(config["training"]["label_smoothing"])
     )
+    if initialization == "ssl" and config["training"]["protocol"] == "full_finetune":
+        optimizer_parameters = [
+            {"params": model.encoder.parameters(), "lr": float(config["training"]["learning_rate"])},
+            {"params": model.classifier.parameters(), "lr": float(config["training"]["head_learning_rate"])},
+        ]
+    else:
+        optimizer_parameters = [parameter for parameter in model.parameters() if parameter.requires_grad]
     optimizer = torch.optim.AdamW(
-        model.parameters(),
+        optimizer_parameters,
         lr=float(config["training"]["learning_rate"]),
         weight_decay=float(config["training"]["weight_decay"]),
     )
@@ -196,7 +233,7 @@ def main() -> None:
 
     print("=" * 72)
     print(f"Run:             {run_name}")
-    print(f"Model:           {config['model']['name']} (random initialization)")
+    print(f"Model:           {config['model']['name']} ({initialization} initialization)")
     print(f"Device:          {device}")
     print(f"Train/val:       {len(train_loader.dataset)}/{len(validation_loader.dataset)}")
     print(f"Parameters:      {total_parameters:,} total; {trainable_parameters:,} trainable")
@@ -330,7 +367,8 @@ def main() -> None:
     )
     summary = {
         "run_name": run_name,
-        "method": "supervised",
+        "method": "supervised" if initialization == "random" else config["model"]["ssl_method"],
+        "classification_protocol": config["training"].get("protocol", "supervised_from_scratch"),
         "external_pretraining": False,
         "model": config["model"]["name"],
         "seed": seed,

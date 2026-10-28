@@ -1,0 +1,27 @@
+{
+  "split": "validation",
+  "validation_manifest": "splits/val.csv",
+  "test_evaluated": false,
+  "random_seed": 0,
+  "tsne_perplexity": 30,
+  "tsne_iterations": 1000,
+  "feature_normalization": "L2",
+  "class_names": [
+    "Bedroom",
+    "Coast",
+    "Flower",
+    "Forest",
+    "Highway",
+    "Industrial",
+    "InsideCity",
+    "Kitchen",
+    "LivingRoom",
+    "Mountain",
+    "Office",
+    "OpenCountry",
+    "Store",
+    "Street",
+    "Suburb",
+    "TallBuilding"
+  ]
+}

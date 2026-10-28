@@ -1,0 +1,10 @@
+{
+  "checkpoint": "artifacts/checkpoints/checkpoint2/classification/dino_vit_tiny_linear_probe_seed0/best.pt",
+  "split": "fixed training manifest with deterministic evaluation transform",
+  "images": 1920,
+  "loss": 1.4969029232859612,
+  "accuracy": 0.5276041666666667,
+  "macro_f1": 0.5125733982481788,
+  "duration_seconds": 2.2408715216442943,
+  "test_evaluated": false
+}

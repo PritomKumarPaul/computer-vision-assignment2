@@ -20,6 +20,12 @@ The fixed split contains 1,920 training and 480 validation images, balanced
 across all 16 classes. Exact SHA-256 duplicate groups are kept entirely within
 one partition.
 
+Install the required packages in the selected environment with:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
 Run the read-only data audit and split tests with:
 
 ```bash
@@ -84,4 +90,67 @@ python scripts/train_supervised.py \
 ```
 
 These commands do not load or evaluate the labeled test set or `test2`.
+
+The supervised controls produced the following fixed-split results:
+
+| Model | Best validation accuracy | Macro-F1 | Best epoch |
+|---|---:|---:|---:|
+| ResNet-18 | 83.75% | 83.69% | 53 |
+| Tiny ViT | 68.13% | 68.03% | 98 |
+
+## Checkpoint 2: SSL pretraining and downstream evaluation
+
+Checkpoint 2 independently pretrains ResNet-18 and Tiny ViT encoders with
+MoCo and DINO-style objectives. All four encoders are randomly initialized and
+use only the fixed training partition; external images and pretrained weights
+remain prohibited. Each frozen encoder is evaluated with a linear probe, and a
+separate copy is fully fine-tuned with a fresh classification head.
+
+Run all four SSL pretraining jobs and eight downstream evaluations with:
+
+```bash
+conda activate vlm_clean
+bash run_checkpoint2.sh
+```
+
+Completed stages are skipped automatically. Interrupted SSL pretraining resumes
+from `last.pt`; `FORCE=1` intentionally reruns completed stages. The runner also
+creates loss curves, clean-training diagnostics, confusion matrices, and frozen
+feature visualizations. Neither test split is loaded.
+
+| SSL method | Backbone | Evaluation | Validation accuracy | Macro-F1 |
+|---|---|---|---:|---:|
+| DINO | ResNet-18 | Full fine-tune | **83.75%** | **83.80%** |
+| MoCo | ResNet-18 | Full fine-tune | 81.88% | 81.75% |
+| DINO | ResNet-18 | Linear probe | 72.08% | 71.75% |
+| MoCo | ResNet-18 | Linear probe | 67.92% | 67.32% |
+| DINO | Tiny ViT | Full fine-tune | 62.92% | 62.66% |
+| MoCo | Tiny ViT | Full fine-tune | 62.92% | 62.60% |
+| MoCo | Tiny ViT | Linear probe | 50.21% | 49.06% |
+| DINO | Tiny ViT | Linear probe | 48.12% | 46.82% |
+
+The strongest frozen representation was DINO–ResNet-18: its five-nearest-
+neighbor validation accuracy was 65.83%, compared with 55.42% for
+MoCo–ResNet-18. KNN is used only as a no-trained-head representation diagnostic;
+it does not affect training or model selection.
+
+The same 480 clean validation images were projected with PCA and t-SNE for all
+four frozen encoders. The plots use a consistent class-color mapping and are
+accompanied by cosine silhouette, neighborhood-purity, and t-SNE
+trustworthiness measurements. DINO–ResNet-18 had the highest silhouette
+(0.049) and purity@5 (44.6%), but substantial class overlap remained. Both ViT
+representations had negative silhouette scores.
+
+![Frozen SSL feature comparison](results/checkpoint2/feature_visualizations/ssl_feature_embeddings.png)
+
+Recreate only the feature analysis with:
+
+```bash
+python scripts/visualize_ssl_features.py --device auto
+```
+
+Machine-readable summaries are stored under `results/checkpoint2/`, including
+`comparison.csv` and
+`feature_visualizations/embedding_metrics.csv`. Model weights remain excluded
+from Git and can be distributed separately as release assets.
 

@@ -1,0 +1,10 @@
+{
+  "checkpoint": "artifacts/checkpoints/checkpoint2/classification/moco_resnet18_linear_probe_seed0/best.pt",
+  "split": "fixed training manifest with deterministic evaluation transform",
+  "images": 1920,
+  "loss": 0.8346677946547667,
+  "accuracy": 0.740625,
+  "macro_f1": 0.7353459689253443,
+  "duration_seconds": 2.543215478770435,
+  "test_evaluated": false
+}

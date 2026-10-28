@@ -1,0 +1,9 @@
+run_name,method,backbone,protocol,clean_train_accuracy,best_validation_accuracy,best_validation_macro_f1,best_epoch,total_seconds,test_evaluated
+dino_resnet18_full_finetune_seed0,dino,resnet18,full_finetune,0.9875,0.8375,0.8380057529505909,92,540.0554940821603,False
+dino_resnet18_linear_probe_seed0,dino,resnet18,linear_probe,0.759375,0.7208333333333333,0.7174965557435926,46,323.3697834685445,False
+dino_vit_tiny_full_finetune_seed0,dino,vit_tiny,full_finetune,0.7479166666666667,0.6291666666666667,0.6265514145071249,80,284.96761410403997,False
+dino_vit_tiny_linear_probe_seed0,dino,vit_tiny,linear_probe,0.5276041666666667,0.48125,0.46823215229742976,66,220.7152829412371,False
+moco_resnet18_full_finetune_seed0,moco,resnet18,full_finetune,0.9255208333333333,0.81875,0.8174858323837577,68,458.4546477450058,False
+moco_resnet18_linear_probe_seed0,moco,resnet18,linear_probe,0.740625,0.6791666666666667,0.6732485717459287,51,357.45453670527786,False
+moco_vit_tiny_full_finetune_seed0,moco,vit_tiny,full_finetune,0.6989583333333333,0.6291666666666667,0.6259502920600138,51,210.63111176341772,False
+moco_vit_tiny_linear_probe_seed0,moco,vit_tiny,linear_probe,0.5041666666666667,0.5020833333333333,0.49059870767342617,22,103.21230525150895,False
