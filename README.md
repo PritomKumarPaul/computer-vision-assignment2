@@ -197,3 +197,55 @@ Completed runs are skipped automatically. The runner creates component-loss
 curves, classification curves, clean-training diagnostics, confusion matrices,
 and `results/checkpoint3/comparison.csv`. Test and test2 are not loaded.
 
+## Released checkpoints
+
+Selected checkpoints are distributed as assets on the
+[`checkpoint3` GitHub Release](https://github.com/PritomKumarPaul/computer-vision-assignment2/releases/tag/checkpoint3)
+rather than committed to Git history. This keeps the repository lightweight
+while making the strongest classifier, strongest transformer, and strongest
+SSL encoder directly reproducible.
+
+| Asset | Purpose | Validation result | Size | SHA-256 |
+|---|---|---:|---:|---|
+| [`best_dino_resnet18_full_finetune.pt`](https://github.com/PritomKumarPaul/computer-vision-assignment2/releases/download/checkpoint3/best_dino_resnet18_full_finetune.pt) | Best overall classifier | 83.75% accuracy, 83.80% macro-F1 | 42.7 MiB | `93bbf0877348a81b167ee5fe0bedb475e3ed9aeff0d0754c644ec6a5b8976d95` |
+| [`best_joint_mae_vit_tiny_cls75_mae25_mask50.pt`](https://github.com/PritomKumarPaul/computer-vision-assignment2/releases/download/checkpoint3/best_joint_mae_vit_tiny_cls75_mae25_mask50.pt) | Best Tiny ViT classifier | 71.04% accuracy, 70.94% macro-F1 | 11.5 MiB | `84950e74fd06dd6496ead126b52623afdefd04f3973008f9ed7b18ad06669f26` |
+| [`encoder_dino_resnet18.pt`](https://github.com/PritomKumarPaul/computer-vision-assignment2/releases/download/checkpoint3/encoder_dino_resnet18.pt) | Best frozen SSL representation | 65.83% validation 5-NN accuracy | 42.7 MiB | `af12956ce9275a274ec67d3f23fd0e843c3274d5c9fbd998b189b45581a28696` |
+
+For an authenticated clone of the private repository, restore all three files
+to the paths expected by the configurations with:
+
+```bash
+mkdir -p \
+  artifacts/checkpoints/checkpoint2/classification/dino_resnet18_full_finetune_seed0 \
+  artifacts/checkpoints/checkpoint2/pretraining/dino_resnet18_seed0 \
+  artifacts/checkpoints/checkpoint3/joint_mae_vit_tiny_seed0
+
+gh release download checkpoint3 \
+  --repo PritomKumarPaul/computer-vision-assignment2 \
+  --pattern best_dino_resnet18_full_finetune.pt \
+  --output artifacts/checkpoints/checkpoint2/classification/dino_resnet18_full_finetune_seed0/best.pt
+
+gh release download checkpoint3 \
+  --repo PritomKumarPaul/computer-vision-assignment2 \
+  --pattern encoder_dino_resnet18.pt \
+  --output artifacts/checkpoints/checkpoint2/pretraining/dino_resnet18_seed0/encoder.pt
+
+gh release download checkpoint3 \
+  --repo PritomKumarPaul/computer-vision-assignment2 \
+  --pattern best_joint_mae_vit_tiny_cls75_mae25_mask50.pt \
+  --output artifacts/checkpoints/checkpoint3/joint_mae_vit_tiny_seed0/best.pt
+```
+
+Verify the restored files before use:
+
+```bash
+sha256sum \
+  artifacts/checkpoints/checkpoint2/classification/dino_resnet18_full_finetune_seed0/best.pt \
+  artifacts/checkpoints/checkpoint2/pretraining/dino_resnet18_seed0/encoder.pt \
+  artifacts/checkpoints/checkpoint3/joint_mae_vit_tiny_seed0/best.pt
+```
+
+The expected digests are listed in the table above and in each run's
+machine-readable summary. Release assets in a private repository require an
+authenticated GitHub account with repository access.
+
