@@ -5,6 +5,11 @@ training images from 16 scene classes. Every model is initialized from scratch
 and trained only with the supplied training images. External pretrained weights
 and external training images are not used.
 
+The frozen final DINO--ResNet-18 model achieved **82.00% accuracy** and
+**81.93% macro-F1** in its one-time evaluation on the 400-image labeled test
+set. Model selection was completed using validation data before this test run;
+`test2` was not evaluated.
+
 ## Data
 
 The dataset is deliberately excluded from Git. Place it at:
@@ -248,4 +253,50 @@ sha256sum \
 The expected digests are listed in the table above and in each run's
 machine-readable summary. Release assets in a private repository require an
 authenticated GitHub account with repository access.
+
+## Final test evaluation
+
+After all validation-based model selection is complete, the frozen final
+DINO--ResNet-18 checkpoint can be evaluated once on the labeled test set with:
+
+```bash
+python scripts/evaluate_final_test.py \
+  --confirm-final-selection \
+  --device auto
+```
+
+The script is locked to the selected checkpoint and its SHA-256 digest, checks
+the test class mapping, refuses to overwrite an existing final evaluation, and
+does not access `test2`. It writes metrics, predictions, and a confusion matrix
+under the gitignored `submission/final_test/` directory.
+
+The recorded one-time evaluation of the frozen checkpoint produced 82.00% test
+accuracy and 81.93% test macro-F1 on 400 images. Its checkpoint digest was
+`93bbf0877348a81b167ee5fe0bedb475e3ed9aeff0d0754c644ec6a5b8976d95`.
+
+For the final report, representative checkpoints chosen using validation data
+were also evaluated once without further tuning:
+
+| Method | Backbone | Test accuracy | Test macro-F1 |
+|---|---|---:|---:|
+| Supervised baseline | ResNet-18 | 80.50% | 80.48% |
+| MoCo pretraining + full fine-tuning | ResNet-18 | 78.00% | 77.82% |
+| **DINO pretraining + full fine-tuning** | **ResNet-18** | **82.00%** | **81.93%** |
+| Joint MAE + classification | Tiny ViT | 66.50% | 66.67% |
+
+DINO therefore improved test accuracy by 1.50 percentage points over the
+supervised ResNet-18 baseline. No model selection or hyperparameter adjustment
+was performed after these test results were observed.
+
+The fixed report comparison can be reproduced once, after all model selection
+is frozen, with:
+
+```bash
+python scripts/evaluate_reporting_comparison.py \
+  --confirm-reporting-only \
+  --device auto
+```
+
+The script is checksum-locked to the preselected supervised, MoCo, and joint-MAE
+checkpoints and reuses the separately locked DINO final-model result.
 
