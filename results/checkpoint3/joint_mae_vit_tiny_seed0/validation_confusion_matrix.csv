@@ -1,0 +1,17 @@
+actual/predicted,Bedroom,Coast,Flower,Forest,Highway,Industrial,InsideCity,Kitchen,LivingRoom,Mountain,Office,OpenCountry,Store,Street,Suburb,TallBuilding
+Bedroom,12,0,0,0,0,0,0,6,8,0,3,0,0,1,0,0
+Coast,0,23,0,0,2,1,0,0,0,0,0,4,0,0,0,0
+Flower,0,0,29,0,0,0,0,0,0,0,0,0,0,1,0,0
+Forest,0,0,0,23,0,0,0,0,0,4,0,0,3,0,0,0
+Highway,0,1,0,0,24,1,0,0,0,1,0,1,1,0,1,0
+Industrial,1,0,0,0,0,17,2,0,1,0,2,1,5,0,0,1
+InsideCity,0,0,0,0,0,4,15,2,1,0,0,0,5,1,0,2
+Kitchen,3,0,0,0,1,0,1,20,3,0,2,0,0,0,0,0
+LivingRoom,1,0,0,0,0,1,0,5,17,0,4,0,0,0,2,0
+Mountain,0,1,0,0,1,0,0,0,0,24,0,2,1,0,1,0
+Office,1,0,0,0,0,0,2,4,2,0,21,0,0,0,0,0
+OpenCountry,0,3,0,2,2,0,0,0,0,2,0,20,0,0,1,0
+Store,2,0,0,0,1,0,0,1,1,0,1,0,22,2,0,0
+Street,0,0,0,0,0,2,2,0,0,0,0,0,1,20,2,3
+Suburb,0,0,0,0,0,0,0,1,1,0,0,0,0,0,28,0
+TallBuilding,0,0,0,0,0,1,1,1,0,1,0,0,0,0,0,26

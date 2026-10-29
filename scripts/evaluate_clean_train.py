@@ -21,7 +21,12 @@ from src.data.manifest_dataset import (  # noqa: E402
     ManifestImageDataset,
     build_transforms,
 )
-from src.models import EncoderClassifier, build_encoder, build_model  # noqa: E402
+from src.models import (  # noqa: E402
+    EncoderClassifier,
+    MAEAuxiliaryModel,
+    build_encoder,
+    build_model,
+)
 from src.training import evaluate  # noqa: E402
 
 
@@ -56,7 +61,14 @@ def main() -> None:
         weights_only=False,
     )
     model_config = checkpoint.get("config", {}).get("model", {})
-    if model_config.get("initialization", "random") == "ssl":
+    if checkpoint.get("task") == "joint_mae":
+        model = MAEAuxiliaryModel(
+            checkpoint["model_name"],
+            num_classes=int(checkpoint["num_classes"]),
+            image_size=int(checkpoint["image_size"]),
+            patch_size=int(checkpoint["patch_size"]),
+        )
+    elif model_config.get("initialization", "random") == "ssl":
         encoder, feature_dim = build_encoder(
             checkpoint["model_name"], image_size=int(checkpoint["image_size"])
         )

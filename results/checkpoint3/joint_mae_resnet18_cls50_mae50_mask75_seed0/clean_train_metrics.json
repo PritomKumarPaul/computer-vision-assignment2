@@ -1,0 +1,10 @@
+{
+  "checkpoint": "artifacts/checkpoints/checkpoint3/joint_mae_resnet18_cls50_mae50_mask75_seed0/best.pt",
+  "split": "fixed training manifest with deterministic evaluation transform",
+  "images": 1920,
+  "loss": 0.7964993814627329,
+  "accuracy": 0.9567708333333333,
+  "macro_f1": 0.956537466070904,
+  "duration_seconds": 2.621469385921955,
+  "test_evaluated": false
+}

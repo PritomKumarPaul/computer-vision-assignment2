@@ -1,0 +1,10 @@
+{
+  "checkpoint": "artifacts/checkpoints/checkpoint3/joint_mae_vit_tiny_cls50_mae50_mask75_seed0/best.pt",
+  "split": "fixed training manifest with deterministic evaluation transform",
+  "images": 1920,
+  "loss": 0.9624562740325928,
+  "accuracy": 0.8390625,
+  "macro_f1": 0.8377902668597719,
+  "duration_seconds": 2.3617513179779053,
+  "test_evaluated": false
+}

@@ -154,3 +154,46 @@ Machine-readable summaries are stored under `results/checkpoint2/`, including
 `feature_visualizations/embedding_metrics.csv`. Model weights remain excluded
 from Git and can be distributed separately as release assets.
 
+## Checkpoint 3: joint classification and masked reconstruction
+
+Checkpoint 3 studies an MAE-style self-supervised auxiliary task trained jointly
+with scene classification. This is a controlled masked-patch reconstruction
+objective rather than a claim to reproduce the original full MAE architecture.
+The classifier receives a clean augmented image, while the shared encoder also
+processes a randomly patch-masked copy for reconstruction. Only masked 16x16
+patches contribute to the patch-normalized reconstruction loss. Model selection
+uses clean validation classification accuracy only.
+
+A 2x2 factorial comparison varies classification/reconstruction loss weights
+and the patch-mask ratio for both backbones:
+
+| Backbone | Classification/MAE weight | Mask ratio | Validation accuracy | Macro-F1 |
+|---|---:|---:|---:|---:|
+| ResNet-18 | 75/25 | 50% | **79.58%** | **79.31%** |
+| ResNet-18 | 50/50 | 50% | **79.58%** | 78.99% |
+| ResNet-18 | 75/25 | 75% | 76.67% | 76.09% |
+| ResNet-18 | 50/50 | 75% | 74.58% | 73.77% |
+| Tiny ViT | 75/25 | 50% | **71.04%** | **70.94%** |
+| Tiny ViT | 50/50 | 75% | 68.96% | 68.83% |
+| Tiny ViT | 50/50 | 50% | 68.33% | 68.02% |
+| Tiny ViT | 75/25 | 75% | 67.29% | 67.27% |
+
+The light 25% reconstruction auxiliary loss with 50% masking improved Tiny ViT
+by 2.92 validation-accuracy points relative to its supervised control. No joint
+MAE configuration improved ResNet-18. Averaged across loss weights, increasing
+masking from 50% to 75% reduced accuracy by 3.96 points for ResNet-18 and 1.56
+points for Tiny ViT. These results indicate that the patch-level auxiliary task
+was better aligned with the transformer, while aggressive masking and stronger
+reconstruction weighting did not improve this small-data setting.
+
+Run the complete sweep with:
+
+```bash
+conda activate vlm_clean
+bash run_checkpoint3.sh
+```
+
+Completed runs are skipped automatically. The runner creates component-loss
+curves, classification curves, clean-training diagnostics, confusion matrices,
+and `results/checkpoint3/comparison.csv`. Test and test2 are not loaded.
+
